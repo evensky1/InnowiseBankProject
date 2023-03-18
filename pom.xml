@@ -22,6 +22,8 @@
     <jakarta.ws.version>3.1.0</jakarta.ws.version>
     <org.projectlombok.version>1.18.26</org.projectlombok.version>
     <postgresql.version>42.5.4</postgresql.version>
+    <io.jsonwebtoken.version>0.11.5</io.jsonwebtoken.version>
+    <bcrypt.version>0.4</bcrypt.version>
   </properties>
 
   <dependencies>
@@ -48,6 +50,31 @@
       <artifactId>jakarta.servlet-api</artifactId>
       <version>${jakarta.servlet.version}</version>
       <scope>provided</scope>
+    </dependency>
+
+    <!--- Repository link: https://github.com/jwtk/jjwt -->
+    <!--- This repo contains large readme with documentation -->
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt-api</artifactId>
+      <version>${io.jsonwebtoken.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt-impl</artifactId>
+      <version>${io.jsonwebtoken.version}</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt-jackson</artifactId>
+      <version>${io.jsonwebtoken.version}</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mindrot</groupId>
+      <artifactId>jbcrypt</artifactId>
+      <version>${bcrypt.version}</version>
     </dependency>
     <dependency>
       <groupId>org.hibernate.orm</groupId>
