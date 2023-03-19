@@ -3,7 +3,7 @@ package com.innowise.innowisebankproject.rest;
 import com.innowise.innowisebankproject.entity.Passport;
 import com.innowise.innowisebankproject.security.JwtService;
 import com.innowise.innowisebankproject.service.PassportService;
-import com.innowise.innowisebankproject.service.PersonService;
+import com.innowise.innowisebankproject.service.UserService;
 import jakarta.ejb.EJB;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.HeaderParam;
@@ -21,7 +21,7 @@ public class PassportResource {
     @EJB
     private JwtService jwtService;
     @EJB
-    private PersonService personService;
+    private UserService userService;
 
     @GET
     @Path("/{id}")
@@ -39,7 +39,7 @@ public class PassportResource {
         var email = jwtService.fetchEmail(jwt);
 
         var savedPassport = passportService.save(passport);
-        personService.attachPassport(email, savedPassport);
+        userService.attachPassport(email, savedPassport);
 
         return Response.noContent().build();
     }

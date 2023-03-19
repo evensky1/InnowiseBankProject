@@ -1,6 +1,6 @@
 package com.innowise.innowisebankproject.rest;
 
-import com.innowise.innowisebankproject.service.PersonService;
+import com.innowise.innowisebankproject.service.UserService;
 import jakarta.ejb.EJB;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -8,18 +8,18 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Response;
 
-@Path("/persons")
-public class PersonResource {
+@Path("/users")
+public class UserResource {
 
     @EJB
-    private PersonService personService;
+    private UserService userService;
 
     @GET
     @Produces("application/json")
-    public Response getAllPersons() {
+    public Response getAllUsers() {
 
         return Response.ok()
-            .entity(personService.findAllPersons())
+            .entity(userService.findAll())
             .build();
     }
 
@@ -34,10 +34,10 @@ public class PersonResource {
     @GET
     @Path("/{id}")
     @Produces("application/json")
-    public Response getPersonById(@PathParam("id") Long id) {
+    public Response getUserById(@PathParam("id") Long id) {
 
         return Response.ok()
-            .entity(personService.findPersonById(id))
+            .entity(userService.findUserById(id))
             .build();
     }
 }

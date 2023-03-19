@@ -28,7 +28,7 @@ import lombok.ToString;
 @Builder
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class Person {
+public class User {
     @Id
     @Column(name = "person_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)

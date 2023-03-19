@@ -3,7 +3,7 @@ package com.innowise.innowisebankproject.rest;
 import com.innowise.innowisebankproject.entity.Account;
 import com.innowise.innowisebankproject.security.JwtService;
 import com.innowise.innowisebankproject.service.AccountService;
-import com.innowise.innowisebankproject.service.PersonService;
+import com.innowise.innowisebankproject.service.UserService;
 import jakarta.ejb.EJB;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.HeaderParam;
@@ -19,7 +19,7 @@ public class AccountResource {
     @EJB
     private AccountService accountService;
     @EJB
-    private PersonService personService;
+    private UserService userService;
     @EJB
     private JwtService jwtService;
 
@@ -29,7 +29,7 @@ public class AccountResource {
         jwt = jwt.substring("Bearer".length()).trim();
         var email = jwtService.fetchEmail(jwt);
 
-        var currentUser = personService.findPersonByEmail(email);
+        var currentUser = userService.findUserByEmail(email);
 
         return Response.status(Status.CREATED)
             .entity(accountService.createAccount(account, currentUser.getId()))
@@ -38,12 +38,12 @@ public class AccountResource {
 
     @GET
     @Path("user-attached")
-    public Response getUserAttachedaccounts(
+    public Response getUserAttachedAccounts(
         @HeaderParam(HttpHeaders.AUTHORIZATION) String jwt) {
 
         jwt = jwt.substring("Bearer".length()).trim();
         var email = jwtService.fetchEmail(jwt);
-        var user = personService.findPersonByEmail(email);
+        var user = userService.findUserByEmail(email);
 
         var accounts = accountService.getAccountsByUserId(user.getId());
 
