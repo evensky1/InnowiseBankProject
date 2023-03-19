@@ -7,6 +7,7 @@ import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
 
@@ -18,8 +19,8 @@ public class AuthController {
 
     @POST
     @Path("/register")
-    @Consumes("application/json")
-    @Produces("application/json")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response register(User user) {
 
         return Response.status(Status.CREATED)
@@ -29,7 +30,8 @@ public class AuthController {
 
     @POST
     @Path("/login")
-    @Consumes("application/json")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response login(User user) {
 
         var jwt = userService.authorize(user);

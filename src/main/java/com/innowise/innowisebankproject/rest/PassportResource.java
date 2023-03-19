@@ -5,12 +5,15 @@ import com.innowise.innowisebankproject.security.JwtService;
 import com.innowise.innowisebankproject.service.PassportService;
 import com.innowise.innowisebankproject.service.UserService;
 import jakarta.ejb.EJB;
+import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.HeaderParam;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.HttpHeaders;
+import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 @Path("/passports")
@@ -25,6 +28,7 @@ public class PassportResource {
 
     @GET
     @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getById(@PathParam("id") Long id) {
         return Response.ok()
             .entity(passportService.getById(id))
@@ -32,6 +36,8 @@ public class PassportResource {
     }
 
     @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response attachPassport(Passport passport,
         @HeaderParam(HttpHeaders.AUTHORIZATION) String jwt) {
 
