@@ -1,6 +1,7 @@
 package com.innowise.innowisebankproject.rest;
 
 import com.innowise.innowisebankproject.entity.AccountCardWrapper;
+import com.innowise.innowisebankproject.security.JwtFilter;
 import com.innowise.innowisebankproject.security.JwtService;
 import com.innowise.innowisebankproject.service.AccountService;
 import com.innowise.innowisebankproject.service.CardService;
@@ -32,6 +33,7 @@ public class CardResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
+    @JwtFilter
     public Response createCard(AccountCardWrapper accountCardWrapper,
         @HeaderParam(HttpHeaders.AUTHORIZATION) String jwt) {
 
@@ -53,6 +55,7 @@ public class CardResource {
     @GET
     @Path("/user-attached")
     @Produces(MediaType.APPLICATION_JSON)
+    @JwtFilter
     public Response getUserAttachedCards(
         @HeaderParam(HttpHeaders.AUTHORIZATION) String jwt) {
 

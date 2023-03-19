@@ -1,5 +1,6 @@
 package com.innowise.innowisebankproject.rest;
 
+import com.innowise.innowisebankproject.security.JwtFilter;
 import com.innowise.innowisebankproject.service.UserService;
 import jakarta.ejb.EJB;
 import jakarta.ws.rs.GET;
@@ -17,6 +18,7 @@ public class UserResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @JwtFilter
     public Response getAllUsers() {
 
         return Response.ok()
@@ -27,6 +29,7 @@ public class UserResource {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
+    @JwtFilter
     public Response getUserById(@PathParam("id") Long id) {
 
         return Response.ok()

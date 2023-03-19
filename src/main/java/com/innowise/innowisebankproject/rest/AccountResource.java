@@ -1,6 +1,7 @@
 package com.innowise.innowisebankproject.rest;
 
 import com.innowise.innowisebankproject.entity.Account;
+import com.innowise.innowisebankproject.security.JwtFilter;
 import com.innowise.innowisebankproject.security.JwtService;
 import com.innowise.innowisebankproject.service.AccountService;
 import com.innowise.innowisebankproject.service.UserService;
@@ -29,6 +30,7 @@ public class AccountResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
+    @JwtFilter
     public Response createAccount(Account account,
         @HeaderParam(HttpHeaders.AUTHORIZATION) String jwt) {
         jwt = jwt.substring("Bearer".length()).trim();
@@ -44,6 +46,7 @@ public class AccountResource {
     @GET
     @Path("/user-attached")
     @Produces(MediaType.APPLICATION_JSON)
+    @JwtFilter
     public Response getUserAttachedAccounts(
         @HeaderParam(HttpHeaders.AUTHORIZATION) String jwt) {
 

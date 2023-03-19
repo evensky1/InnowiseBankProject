@@ -1,6 +1,7 @@
 package com.innowise.innowisebankproject.rest;
 
 import com.innowise.innowisebankproject.entity.Passport;
+import com.innowise.innowisebankproject.security.JwtFilter;
 import com.innowise.innowisebankproject.security.JwtService;
 import com.innowise.innowisebankproject.service.PassportService;
 import com.innowise.innowisebankproject.service.UserService;
@@ -29,6 +30,7 @@ public class PassportResource {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
+    @JwtFilter
     public Response getById(@PathParam("id") Long id) {
         return Response.ok()
             .entity(passportService.getById(id))
@@ -38,6 +40,7 @@ public class PassportResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
+    @JwtFilter
     public Response attachPassport(Passport passport,
         @HeaderParam(HttpHeaders.AUTHORIZATION) String jwt) {
 
