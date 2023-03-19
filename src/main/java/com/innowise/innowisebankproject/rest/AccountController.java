@@ -18,7 +18,7 @@ import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
 
 @Path("/v1/accounts")
-public class AccountResource {
+public class AccountController {
 
     @EJB
     private AccountService accountService;

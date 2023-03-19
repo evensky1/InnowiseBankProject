@@ -18,7 +18,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 @Path("/v1/passports")
-public class PassportResource {
+public class PassportController {
 
     @EJB
     private PassportService passportService;

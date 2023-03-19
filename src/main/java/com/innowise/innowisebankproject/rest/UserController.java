@@ -11,7 +11,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 @Path("/v1/users")
-public class UserResource {
+public class UserController {
 
     @EJB
     private UserService userService;

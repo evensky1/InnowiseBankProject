@@ -19,7 +19,7 @@ import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
 
 @Path("/v1/cards")
-public class CardResource {
+public class CardController {
 
     @EJB
     private CardService cardService;
