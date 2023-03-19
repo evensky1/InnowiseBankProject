@@ -14,13 +14,17 @@ import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @Entity
 @Table(name = "account")
 @Getter
+@Setter
+@Builder
 @ToString
 @AllArgsConstructor
 @RequiredArgsConstructor

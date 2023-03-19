@@ -14,4 +14,6 @@ public interface PersonService {
     List<Person> findAllPersons();
 
     String authorizePerson(Person person);
+
+    Person findPersonByEmail(String email);
 }

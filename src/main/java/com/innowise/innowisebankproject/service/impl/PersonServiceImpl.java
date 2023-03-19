@@ -61,4 +61,11 @@ public class PersonServiceImpl implements PersonService {
             throw new AuthorizationException("Incorrect password");
         }
     }
+
+    @Override
+    public Person findPersonByEmail(String email) {
+        return personRepository.findByEmail(email).orElseThrow(() -> {
+            throw new ResourceNotFoundException("Person with such email does not exist");
+        });
+    }
 }
