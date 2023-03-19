@@ -6,16 +6,20 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @Entity
 @Table(name = "passport")
 @Getter
+@Setter
 @ToString
+@Builder
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class Passport {
@@ -25,7 +29,7 @@ public class Passport {
     private Long id;
 
     @Column(name = "dob")
-    private LocalDateTime dob;
+    private LocalDate dob;
 
     @Column(name = "firstname")
     private String name;

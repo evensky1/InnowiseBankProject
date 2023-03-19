@@ -1,8 +1,8 @@
 package com.innowise.innowisebankproject.security;
 
 import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.Jwts;
 import jakarta.annotation.Priority;
+import jakarta.ejb.EJB;
 import jakarta.ws.rs.Priorities;
 import jakarta.ws.rs.container.ContainerRequestContext;
 import jakarta.ws.rs.container.ContainerRequestFilter;
@@ -16,6 +16,9 @@ import jakarta.ws.rs.ext.Provider;
 @Priority(Priorities.AUTHENTICATION)
 public class JwtFilterProvider implements ContainerRequestFilter {
 
+    @EJB
+    private JwtService jwtService;
+
     @Override
     public void filter(ContainerRequestContext containerRequestContext) {
 
@@ -24,12 +27,7 @@ public class JwtFilterProvider implements ContainerRequestFilter {
         try {
             var token = authHeader.substring("Bearer".length()).trim();
 
-            var key = System.getenv("JWT_KEY").getBytes();
-            Jwts.parserBuilder()
-                .setSigningKey(key)
-                .build()
-                .parseClaimsJws(token);
-
+            jwtService.validateToken(token);
         } catch (JwtException | NullPointerException e) {
             containerRequestContext.abortWith(Response.status(Status.UNAUTHORIZED).build());
         }

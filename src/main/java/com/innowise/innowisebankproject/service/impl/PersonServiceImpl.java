@@ -1,8 +1,10 @@
 package com.innowise.innowisebankproject.service.impl;
 
+import com.innowise.innowisebankproject.entity.Passport;
 import com.innowise.innowisebankproject.entity.Person;
 import com.innowise.innowisebankproject.exception.AuthorizationException;
 import com.innowise.innowisebankproject.exception.ResourceNotFoundException;
+import com.innowise.innowisebankproject.exception.ResourceUpdateException;
 import com.innowise.innowisebankproject.repository.PersonRepository;
 import com.innowise.innowisebankproject.security.JwtService;
 import com.innowise.innowisebankproject.service.PersonService;
@@ -28,8 +30,10 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public Person updatePerson(Person person) {
-        return null;
+    public void attachPassport(String email, Passport passport) {
+        if (personRepository.attachPassport(email, passport) == 0) {
+            throw new ResourceUpdateException("User was not found or passport already attached");
+        }
     }
 
     @Override

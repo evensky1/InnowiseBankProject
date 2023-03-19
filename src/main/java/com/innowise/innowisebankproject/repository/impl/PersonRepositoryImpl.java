@@ -1,5 +1,6 @@
 package com.innowise.innowisebankproject.repository.impl;
 
+import com.innowise.innowisebankproject.entity.Passport;
 import com.innowise.innowisebankproject.entity.Person;
 import com.innowise.innowisebankproject.repository.PersonRepository;
 import jakarta.ejb.Stateless;
@@ -29,16 +30,26 @@ public class PersonRepositoryImpl implements PersonRepository {
 
     @Override
     public Optional<Person> findByEmail(String email) {
-        var query = entityManager.createQuery("SELECT p FROM Person p WHERE p.email LIKE :email");
+        var query = entityManager
+            .createQuery("SELECT p FROM Person p WHERE p.email LIKE :email")
+            .setParameter("email", email);
 
-        return Optional.ofNullable(
-            (Person) query.setParameter("email", email).getSingleResult()
-        );
+        return Optional.ofNullable((Person) query.getSingleResult());
     }
 
     @Override
     public List<Person> findAll() {
         var query = entityManager.createQuery("SELECT p FROM Person p");
         return (List<Person>) query.getResultList();
+    }
+
+    @Override
+    @Transactional
+    public int attachPassport(String email, Passport passport) {
+        return entityManager
+            .createQuery("UPDATE Person p SET p.passport = :passport WHERE p.email LIKE :email")
+            .setParameter("email", email)
+            .setParameter("passport", passport)
+            .executeUpdate();
     }
 }

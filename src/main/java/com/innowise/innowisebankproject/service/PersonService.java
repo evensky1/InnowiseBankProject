@@ -1,5 +1,6 @@
 package com.innowise.innowisebankproject.service;
 
+import com.innowise.innowisebankproject.entity.Passport;
 import com.innowise.innowisebankproject.entity.Person;
 import jakarta.ejb.Local;
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
 public interface PersonService {
 
     Person savePerson(Person person);
-    Person updatePerson(Person person);
+    void attachPassport(String email, Passport passport);
     Person findPersonById(Long id);
     List<Person> findAllPersons();
 

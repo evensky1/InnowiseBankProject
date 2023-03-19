@@ -1,5 +1,6 @@
 package com.innowise.innowisebankproject.security;
 
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import jakarta.ejb.Stateless;
 import javax.crypto.spec.SecretKeySpec;
@@ -15,5 +16,25 @@ public class JwtService {
             .setSubject(email)
             .signWith(key)
             .compact();
+    }
+
+    public void validateToken(String token) throws JwtException {
+
+        var key = System.getenv("JWT_KEY").getBytes();
+        Jwts.parserBuilder()
+            .setSigningKey(key)
+            .build()
+            .parseClaimsJws(token);
+    }
+
+    public String fetchEmail(String token) {
+        var key = System.getenv("JWT_KEY").getBytes();
+
+        return Jwts.parserBuilder()
+            .setSigningKey(key)
+            .build()
+            .parseClaimsJws(token)
+            .getBody()
+            .getSubject();
     }
 }
