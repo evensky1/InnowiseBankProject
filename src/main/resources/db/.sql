@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS account
     account_id    BIGSERIAL PRIMARY KEY,
     money         DECIMAL                              NOT NULL,
     iban          VARCHAR(28)                          NOT NULL,
-    num           VARCHAR(15)                          NOT NULL,
+    num           VARCHAR(16)                          NOT NULL,
     currency_type VARCHAR(10)                          NOT NULL,
     person_id     BIGINT REFERENCES person (person_id) NOT NULL
 );

@@ -29,7 +29,7 @@ public class CardServiceImpl implements CardService {
             .expirationTime(card.getExpirationTime())
             .build();
 
-        cardRepository.add(card);
+        cardRepository.add(newCard);
 
         return newCard;
     }

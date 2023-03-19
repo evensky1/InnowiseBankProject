@@ -6,7 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -39,7 +39,7 @@ public class Card {
     private String cvv;
 
     @Column(name = "expiration_time")
-    private LocalDateTime expirationTime;
+    private LocalDate expirationTime;
 
     @Column(name = "person_id")
     private Long userId;
