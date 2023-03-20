@@ -1,6 +1,6 @@
 package com.innowise.innowisebankproject.rest;
 
-import com.innowise.innowisebankproject.entity.AccountCardWrapper;
+import com.innowise.innowisebankproject.dto.AccountCardWrapper;
 import com.innowise.innowisebankproject.security.JwtFilter;
 import com.innowise.innowisebankproject.security.JwtService;
 import com.innowise.innowisebankproject.service.AccountService;

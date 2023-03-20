@@ -54,4 +54,23 @@ public class Account {
 
     @Column(name = "person_id")
     private Long userId;
+
+    public boolean sendMoney(Account from, BigDecimal amount) {
+        if (currencyType != from.currencyType || money.compareTo(amount) <= 0) {
+            return false;
+        }
+
+        this.decMoney(amount);
+        from.incMoney(amount);
+
+        return true;
+    }
+
+    public void incMoney(BigDecimal amount) {
+        money = money.add(amount);
+    }
+
+    public void decMoney(BigDecimal amount) {
+        money = money.subtract(amount);
+    }
 }
