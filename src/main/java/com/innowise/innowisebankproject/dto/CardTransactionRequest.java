@@ -10,8 +10,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class AccountTransactionRequest {
-    private String destAccountNum;
-    private Long srcAccountId;
+public class CardTransactionRequest {
+    private String destCardNum;
+    private Long srcCardId;
     private BigDecimal amount;
 }

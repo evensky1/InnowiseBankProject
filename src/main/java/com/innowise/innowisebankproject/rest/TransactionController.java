@@ -1,6 +1,7 @@
 package com.innowise.innowisebankproject.rest;
 
 import com.innowise.innowisebankproject.dto.AccountTransactionRequest;
+import com.innowise.innowisebankproject.dto.CardTransactionRequest;
 import com.innowise.innowisebankproject.security.JwtFilter;
 import com.innowise.innowisebankproject.service.TransactionService;
 import jakarta.ejb.EJB;
@@ -26,9 +27,22 @@ public class TransactionController {
     public Response makeAccountTransaction(AccountTransactionRequest request) {
         transactionService.makeAccountTransaction(
             request.getDestAccountNum(),
-            request.getAccountId(),
-            request.getAmount(),
-            request.getCurrencies());
+            request.getSrcAccountId(),
+            request.getAmount());
+
+        return Response.status(Status.CREATED).build();
+    }
+
+    @POST
+    @Path("/card")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @JwtFilter
+    public Response makeCardTransaction(CardTransactionRequest request) {
+        transactionService.makeCardTransaction(
+            request.getDestCardNum(),
+            request.getSrcCardId(),
+            request.getAmount());
 
         return Response.status(Status.CREATED).build();
     }

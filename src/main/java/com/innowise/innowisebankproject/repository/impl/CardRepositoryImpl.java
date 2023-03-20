@@ -32,4 +32,12 @@ public class CardRepositoryImpl implements CardRepository {
     public Optional<Card> findById(Long id) {
         return Optional.ofNullable(entityManager.find(Card.class, id));
     }
+
+    @Override
+    public Optional<Card> findByNum(String number) {
+        var query = entityManager.createQuery("SELECT c FROM Card c WHERE c.number = :number")
+            .setParameter("number", number);
+
+        return Optional.ofNullable((Card) query.getSingleResult());
+    }
 }
