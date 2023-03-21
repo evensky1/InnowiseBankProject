@@ -6,12 +6,16 @@ import com.innowise.innowisebankproject.repository.PassportRepository;
 import com.innowise.innowisebankproject.service.PassportService;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Stateless
+@AllArgsConstructor
+@NoArgsConstructor
 public class PassportServiceImpl implements PassportService {
 
     @EJB
-    PassportRepository passportRepository;
+    private PassportRepository passportRepository;
 
     @Override
     public Passport save(Passport passport) {

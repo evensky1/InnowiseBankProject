@@ -11,8 +11,12 @@ import com.innowise.innowisebankproject.service.TransactionService;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 import java.math.BigDecimal;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Stateless
+@AllArgsConstructor
+@NoArgsConstructor
 public class TransactionServiceImpl implements TransactionService {
 
     @EJB

@@ -11,12 +11,18 @@ import com.innowise.innowisebankproject.service.UserService;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 import java.util.List;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;
 
 @Stateless
+@NoArgsConstructor
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
     @EJB
+    @NonNull
     private UserRepository userRepository;
     @EJB
     private JwtService jwtService;
@@ -52,7 +58,7 @@ public class UserServiceImpl implements UserService {
     public String authorize(User user) {
         var registeredPerson =
             userRepository.findByEmail(user.getEmail()).orElseThrow(() -> {
-                throw new AuthorizationException("User wasn't found");
+                throw new AuthorizationException("User with such email does not exist");
             });
 
         if (BCrypt.checkpw(user.getPassword(), registeredPerson.getPassword())) {

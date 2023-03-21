@@ -7,8 +7,12 @@ import com.innowise.innowisebankproject.service.CardService;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Stateless
+@AllArgsConstructor
+@NoArgsConstructor
 public class CardServiceImpl implements CardService {
 
     @EJB
