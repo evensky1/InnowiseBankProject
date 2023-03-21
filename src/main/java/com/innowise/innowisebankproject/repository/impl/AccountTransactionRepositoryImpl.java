@@ -36,7 +36,7 @@ public class AccountTransactionRepositoryImpl implements AccountTransactionRepos
         var query = entityManager.createQuery("SELECT t FROM AccountTransaction t WHERE t.fromAccount = :id")
             .setParameter("id", id);
 
-        return (List<AccountTransaction>) query.getResultList();
+        return query.getResultList();
     }
 
     @Override

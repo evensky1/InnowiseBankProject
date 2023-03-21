@@ -25,7 +25,7 @@ public class CardRepositoryImpl implements CardRepository {
         var query = entityManager.createQuery("SELECT c FROM Card c WHERE c.userId = :userId")
             .setParameter("userId", id);
 
-        return (List<Card>) query.getResultList();
+        return query.getResultList();
     }
 
     @Override
@@ -38,6 +38,6 @@ public class CardRepositoryImpl implements CardRepository {
         var query = entityManager.createQuery("SELECT c FROM Card c WHERE c.number = :number")
             .setParameter("number", number);
 
-        return Optional.ofNullable((Card) query.getSingleResult());
+        return query.getResultStream().findFirst();
     }
 }

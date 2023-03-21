@@ -25,12 +25,14 @@ public class TransactionController {
     @Consumes(MediaType.APPLICATION_JSON)
     @JwtFilter
     public Response makeAccountTransaction(AccountTransactionRequest request) {
-        transactionService.makeAccountTransaction(
-            request.getDestAccountNum(),
-            request.getSrcAccountId(),
-            request.getAmount());
+        var transaction = transactionService.makeAccountTransaction(
+                                                     request.getDestAccountNum(),
+                                                     request.getSrcAccountId(),
+                                                     request.getAmount());
 
-        return Response.status(Status.CREATED).build();
+        return Response.status(Status.CREATED)
+            .entity(transaction)
+            .build();
     }
 
     @POST
@@ -39,11 +41,13 @@ public class TransactionController {
     @Consumes(MediaType.APPLICATION_JSON)
     @JwtFilter
     public Response makeCardTransaction(CardTransactionRequest request) {
-        transactionService.makeCardTransaction(
-            request.getDestCardNum(),
-            request.getSrcCardId(),
-            request.getAmount());
+        var transaction = transactionService.makeCardTransaction(
+                                                    request.getDestCardNum(),
+                                                    request.getSrcCardId(),
+                                                    request.getAmount());
 
-        return Response.status(Status.CREATED).build();
+        return Response.status(Status.CREATED)
+            .entity(transaction)
+            .build();
     }
 }

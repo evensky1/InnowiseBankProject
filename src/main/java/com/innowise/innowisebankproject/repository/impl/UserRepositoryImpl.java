@@ -34,13 +34,13 @@ public class UserRepositoryImpl implements UserRepository {
             .createQuery("SELECT p FROM User p WHERE p.email LIKE :email")
             .setParameter("email", email);
 
-        return Optional.ofNullable((User) query.getSingleResult());
+        return query.getResultStream().findFirst();
     }
 
     @Override
     public List<User> findAll() {
         var query = entityManager.createQuery("SELECT p FROM User p");
-        return (List<User>) query.getResultList();
+        return query.getResultList();
     }
 
     @Override

@@ -11,7 +11,6 @@ import com.innowise.innowisebankproject.service.TransactionService;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 import java.math.BigDecimal;
-import java.time.Instant;
 
 @Stateless
 public class TransactionServiceImpl implements TransactionService {
@@ -43,7 +42,6 @@ public class TransactionServiceImpl implements TransactionService {
         var accountTransaction = AccountTransaction.builder()
             .toAccount(destAccount)
             .fromAccount(srcAccount)
-            .beingAt(Instant.now())
             .amount(amount)
             .currencyType(srcAccount.getCurrencyType())
             .build();
@@ -62,13 +60,14 @@ public class TransactionServiceImpl implements TransactionService {
 
         accountTransactionRepository.transfer(destCard.getAccountId(), srcCard.getAccountId(), amount);
         var currencyType = accountRepository.findAccountById(destCard.getAccountId())
-            .orElseThrow(() -> { throw new ResourceNotFoundException("Account with such number was not found");})
+            .orElseThrow(() -> {
+                throw new ResourceNotFoundException("Account with such number was not found");
+            })
             .getCurrencyType();
 
         var cardTransaction = CardTransaction.builder()
             .toCard(destCard)
             .fromCard(srcCard)
-            .beingAt(Instant.now())
             .amount(amount)
             .currencyType(currencyType)
             .build();

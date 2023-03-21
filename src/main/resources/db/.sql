@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS account_transaction
     from_account_id        BIGINT         NOT NULL,
     to_account_id          BIGINT         NOT NULL,
     amount                 NUMERIC(10, 3) NOT NULL,
-    currency               currency_type  NOT NULL,
+    currency               VARCHAR(10)  NOT NULL,
     being_at               TIMESTAMP DEFAULT now(),
     FOREIGN KEY (from_account_id) REFERENCES account (account_id),
     FOREIGN KEY (to_account_id) REFERENCES account (account_id)
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS card_transaction
     from_card_id        BIGINT         NOT NULL,
     to_card_id          BIGINT         NOT NULL,
     amount              NUMERIC(10, 3) NOT NULL,
-    currency            currency_type  NOT NULL,
+    currency            VARCHAR(10)  NOT NULL,
     being_at            TIMESTAMP DEFAULT now(),
     FOREIGN KEY (from_card_id) REFERENCES card (card_id),
     FOREIGN KEY (to_card_id) REFERENCES card (card_id)
