@@ -2,30 +2,24 @@ package com.innowise.innowisebankproject.service.impl;
 
 import com.innowise.innowisebankproject.entity.Passport;
 import com.innowise.innowisebankproject.entity.User;
-import com.innowise.innowisebankproject.exception.AuthorizationException;
 import com.innowise.innowisebankproject.exception.ResourceNotFoundException;
 import com.innowise.innowisebankproject.exception.ResourceUpdateException;
 import com.innowise.innowisebankproject.repository.UserRepository;
-import com.innowise.innowisebankproject.security.JwtService;
 import com.innowise.innowisebankproject.service.UserService;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 import java.util.List;
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;
 
 @Stateless
 @NoArgsConstructor
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class UserServiceImpl implements UserService {
 
     @EJB
-    @NonNull
     private UserRepository userRepository;
-    @EJB
-    private JwtService jwtService;
 
     @Override
     public User save(User user) {
@@ -52,20 +46,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findAll() {
         return userRepository.findAll();
-    }
-
-    @Override
-    public String authorize(User user) {
-        var registeredPerson =
-            userRepository.findByEmail(user.getEmail()).orElseThrow(() -> {
-                throw new AuthorizationException("User with such email does not exist");
-            });
-
-        if (BCrypt.checkpw(user.getPassword(), registeredPerson.getPassword())) {
-            return jwtService.generateJwt(user.getEmail());
-        } else {
-            throw new AuthorizationException("Incorrect password");
-        }
     }
 
     @Override
