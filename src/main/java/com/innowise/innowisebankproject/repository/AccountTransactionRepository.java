@@ -8,11 +8,7 @@ import java.util.List;
 @Local
 public interface AccountTransactionRepository {
 
-    void madeAccountTransaction(long toAccountId,
-                                   long fromAccountId,
-                                   BigDecimal amount,
-                                   String currencies);
-
+    void transfer(long toAccountId, long fromAccountId, BigDecimal amount);
     List<AccountTransaction> findTransactionsByAccountId(Long id);
-
+    AccountTransaction logTransaction(AccountTransaction accountTransaction);
 }

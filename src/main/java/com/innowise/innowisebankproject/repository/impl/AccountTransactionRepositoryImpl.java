@@ -19,7 +19,7 @@ public class AccountTransactionRepositoryImpl implements AccountTransactionRepos
 
     @Override
     @Transactional
-    public void madeAccountTransaction(long toAccountId, long fromAccountId, BigDecimal amount, String currencies) {
+    public void transfer(long toAccountId, long fromAccountId, BigDecimal amount) {
         var query = entityManager.createQuery("SELECT ac FROM Account ac WHERE ac.id = :id");
 
         var sourceAccount = (Account) query.setParameter("id", fromAccountId).getSingleResult();
@@ -30,11 +30,18 @@ public class AccountTransactionRepositoryImpl implements AccountTransactionRepos
         }
     }
 
+
     @Override
     public List<AccountTransaction> findTransactionsByAccountId(Long id) {
         var query = entityManager.createQuery("SELECT t FROM AccountTransaction t WHERE t.fromAccount = :id")
             .setParameter("id", id);
 
-        return (List<AccountTransaction>) query.getResultList();
+        return query.getResultList();
+    }
+
+    @Override
+    public AccountTransaction logTransaction(AccountTransaction accountTransaction) {
+        entityManager.persist(accountTransaction);
+        return accountTransaction;
     }
 }

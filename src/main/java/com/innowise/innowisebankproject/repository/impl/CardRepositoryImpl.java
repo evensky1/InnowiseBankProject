@@ -25,11 +25,19 @@ public class CardRepositoryImpl implements CardRepository {
         var query = entityManager.createQuery("SELECT c FROM Card c WHERE c.userId = :userId")
             .setParameter("userId", id);
 
-        return (List<Card>) query.getResultList();
+        return query.getResultList();
     }
 
     @Override
     public Optional<Card> findById(Long id) {
         return Optional.ofNullable(entityManager.find(Card.class, id));
+    }
+
+    @Override
+    public Optional<Card> findByNum(String number) {
+        var query = entityManager.createQuery("SELECT c FROM Card c WHERE c.number = :number")
+            .setParameter("number", number);
+
+        return query.getResultStream().findFirst();
     }
 }

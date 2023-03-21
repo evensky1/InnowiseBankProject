@@ -14,17 +14,20 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
-import java.time.Instant;
-import java.util.UUID;
+import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.DynamicInsert;
 
 @Entity
-@Getter
 @DynamicInsert
 @Table(name = "account_transaction")
+@Getter
+@Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class AccountTransaction {
@@ -32,7 +35,7 @@ public class AccountTransaction {
     @Id
     @Column(name = "account_transaction_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private UUID id;
+    private Long id;
 
     @ManyToOne(cascade = {
         CascadeType.REFRESH,
@@ -57,5 +60,5 @@ public class AccountTransaction {
 
     @Column(name = "being_at",
         columnDefinition = "timestamp default now()")
-    private Instant beingAt;
+    private Timestamp beingAt;
 }

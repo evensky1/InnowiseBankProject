@@ -26,7 +26,7 @@ public class AccountRepositoryImpl implements AccountRepository {
             .createQuery("SELECT a FROM Account a WHERE a.number LIKE :number")
             .setParameter("number", number);
 
-        return Optional.ofNullable((Account) query.getSingleResult());
+        return query.getResultStream().findFirst();
     }
 
     @Override
@@ -40,6 +40,6 @@ public class AccountRepositoryImpl implements AccountRepository {
             .createQuery("SELECT a FROM Account a WHERE a.userId = :userId")
             .setParameter("userId", id);
 
-        return (List<Account>) query.getResultList();
+        return query.getResultList();
     }
 }

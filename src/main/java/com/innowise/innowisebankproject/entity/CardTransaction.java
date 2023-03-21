@@ -14,16 +14,19 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import java.time.Instant;
-import java.util.UUID;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.DynamicInsert;
 
 @Entity
-@Getter
 @DynamicInsert
 @Table(name = "card_transaction")
+@Getter
+@Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class CardTransaction {
@@ -31,7 +34,7 @@ public class CardTransaction {
     @Id
     @Column(name = "card_transaction_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private UUID id;
+    private Long id;
 
     @ManyToOne(cascade = {
         CascadeType.REFRESH,
