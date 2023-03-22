@@ -54,7 +54,7 @@ class AccountServiceTest {
             .number(num)
             .build();
 
-        given(accountRepository.findAccountByAccountNumber(num)).willReturn(Optional.of(account));
+        given(accountRepository.findByNumber(num)).willReturn(Optional.of(account));
         var foundedAccount = accountService.findByNum(num);
 
         assertThat(foundedAccount).isEqualTo(account);
@@ -64,7 +64,7 @@ class AccountServiceTest {
     void findByNonExistingNumTest() {
         var num = "1234567891234567";
 
-        given(accountRepository.findAccountByAccountNumber(num)).willReturn(Optional.empty());
+        given(accountRepository.findByNumber(num)).willReturn(Optional.empty());
 
         assertThatThrownBy(() -> accountService.findByNum(num))
             .isInstanceOf(ResourceNotFoundException.class)
@@ -79,7 +79,7 @@ class AccountServiceTest {
             .number("1234567891234567")
             .build();
 
-        given(accountRepository.findAccountById(id)).willReturn(Optional.of(account));
+        given(accountRepository.findById(id)).willReturn(Optional.of(account));
         var foundedAccount = accountService.findById(id);
 
         assertThat(foundedAccount).isEqualTo(account);
@@ -89,7 +89,7 @@ class AccountServiceTest {
     void findByNonExistingId() {
         var id = 1L;
 
-        given(accountRepository.findAccountById(id)).willReturn(Optional.empty());
+        given(accountRepository.findById(id)).willReturn(Optional.empty());
 
         assertThatThrownBy(() -> accountService.findById(id))
             .isInstanceOf(ResourceNotFoundException.class)

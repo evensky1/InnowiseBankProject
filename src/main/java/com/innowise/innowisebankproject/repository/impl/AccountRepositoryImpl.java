@@ -21,7 +21,7 @@ public class AccountRepositoryImpl implements AccountRepository {
     }
 
     @Override
-    public Optional<Account> findAccountByAccountNumber(String number) {
+    public Optional<Account> findByNumber(String number) {
         var query = entityManager
             .createQuery("SELECT a FROM Account a WHERE a.number LIKE :number")
             .setParameter("number", number);
@@ -30,7 +30,7 @@ public class AccountRepositoryImpl implements AccountRepository {
     }
 
     @Override
-    public Optional<Account> findAccountById(Long id) {
+    public Optional<Account> findById(Long id) {
         return Optional.ofNullable(entityManager.find(Account.class, id));
     }
 

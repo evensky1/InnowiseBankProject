@@ -41,14 +41,14 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account findByNum(String number) {
-        return accountRepository.findAccountByAccountNumber(number).orElseThrow(() -> {
+        return accountRepository.findByNumber(number).orElseThrow(() -> {
             throw new ResourceNotFoundException("Account with such number was not found");
         });
     }
 
     @Override
     public Account findById(Long id) {
-        return accountRepository.findAccountById(id).orElseThrow(() -> {
+        return accountRepository.findById(id).orElseThrow(() -> {
             throw new ResourceNotFoundException("Account with such id was not found");
         });
     }
