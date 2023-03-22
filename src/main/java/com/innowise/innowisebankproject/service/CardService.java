@@ -9,5 +9,4 @@ public interface CardService {
 
     Card createCard(Card card, Long accountId, Long userId);
     List<Card> getCardsByUserId(Long id);
-    Card findCardById(Long id);
 }
