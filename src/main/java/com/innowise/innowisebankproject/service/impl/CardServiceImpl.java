@@ -1,14 +1,17 @@
 package com.innowise.innowisebankproject.service.impl;
 
 import com.innowise.innowisebankproject.entity.Card;
-import com.innowise.innowisebankproject.exception.ResourceNotFoundException;
 import com.innowise.innowisebankproject.repository.CardRepository;
 import com.innowise.innowisebankproject.service.CardService;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Stateless
+@AllArgsConstructor
+@NoArgsConstructor
 public class CardServiceImpl implements CardService {
 
     @EJB
@@ -37,12 +40,5 @@ public class CardServiceImpl implements CardService {
     @Override
     public List<Card> getCardsByUserId(Long id) {
         return cardRepository.getAllByUserId(id);
-    }
-
-    @Override
-    public Card findCardById(Long id) {
-        return cardRepository.findById(id).orElseThrow(() -> {
-            throw new ResourceNotFoundException("Card with such id was not found");
-        });
     }
 }

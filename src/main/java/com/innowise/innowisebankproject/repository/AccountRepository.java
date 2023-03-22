@@ -9,8 +9,8 @@ import java.util.Optional;
 public interface AccountRepository {
 
     Account add(Account account);
-    Optional<Account> findAccountByAccountNumber(String number);
-    Optional<Account> findAccountById(Long id);
+    Optional<Account> findByNumber(String number);
+    Optional<Account> findById(Long id);
 
     List<Account> findAccountsByUserId(Long id);
 }

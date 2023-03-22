@@ -11,8 +11,12 @@ import com.innowise.innowisebankproject.service.TransactionService;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 import java.math.BigDecimal;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Stateless
+@AllArgsConstructor
+@NoArgsConstructor
 public class TransactionServiceImpl implements TransactionService {
 
     @EJB
@@ -28,12 +32,12 @@ public class TransactionServiceImpl implements TransactionService {
     public AccountTransaction makeAccountTransaction(String destAccountNum, long srcAccountId, BigDecimal amount) {
 
         var destAccount =
-            accountRepository.findAccountByAccountNumber(destAccountNum).orElseThrow(() -> {
+            accountRepository.findByNumber(destAccountNum).orElseThrow(() -> {
                 throw new ResourceNotFoundException("Account with such number was not found");
             });
 
         var srcAccount =
-            accountRepository.findAccountById(srcAccountId).orElseThrow(() -> {
+            accountRepository.findById(srcAccountId).orElseThrow(() -> {
                 throw new ResourceNotFoundException("Account with such number was not found");
             });
 
@@ -59,9 +63,9 @@ public class TransactionServiceImpl implements TransactionService {
         });
 
         accountTransactionRepository.transfer(destCard.getAccountId(), srcCard.getAccountId(), amount);
-        var currencyType = accountRepository.findAccountById(destCard.getAccountId())
+        var currencyType = accountRepository.findById(destCard.getAccountId())
             .orElseThrow(() -> {
-                throw new ResourceNotFoundException("Account with such number was not found");
+                throw new ResourceNotFoundException("Account with such id was not found");
             })
             .getCurrencyType();
 

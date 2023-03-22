@@ -12,8 +12,5 @@ public interface UserService {
     void attachPassport(String email, Passport passport);
     User findUserById(Long id);
     List<User> findAll();
-
-    String authorize(User user);
-
     User findUserByEmail(String email);
 }

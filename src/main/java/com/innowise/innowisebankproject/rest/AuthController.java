@@ -1,6 +1,7 @@
 package com.innowise.innowisebankproject.rest;
 
 import com.innowise.innowisebankproject.entity.User;
+import com.innowise.innowisebankproject.service.AuthService;
 import com.innowise.innowisebankproject.service.UserService;
 import jakarta.ejb.EJB;
 import jakarta.ws.rs.Consumes;
@@ -16,6 +17,8 @@ public class AuthController {
 
     @EJB
     private UserService userService;
+    @EJB
+    private AuthService authService;
 
     @POST
     @Path("/register")
@@ -34,7 +37,7 @@ public class AuthController {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response login(User user) {
 
-        var jwt = userService.authorize(user);
+        var jwt = authService.authorize(user);
 
         return Response.noContent()
             .header("Authorization", "Bearer " + jwt)
