@@ -4,6 +4,7 @@ import com.innowise.innowisebankproject.entity.Account;
 import com.innowise.innowisebankproject.exception.ResourceNotFoundException;
 import com.innowise.innowisebankproject.repository.AccountRepository;
 import com.innowise.innowisebankproject.service.AccountService;
+import com.innowise.innowisebankproject.util.ExceptionMessages;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 import java.math.BigDecimal;
@@ -42,14 +43,14 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Account findByNum(String number) {
         return accountRepository.findByNumber(number).orElseThrow(() -> {
-            throw new ResourceNotFoundException("Account with such number was not found");
+            throw new ResourceNotFoundException(ExceptionMessages.ACCOUNT_BY_NUM_NOT_FOUND);
         });
     }
 
     @Override
     public Account findById(Long id) {
         return accountRepository.findById(id).orElseThrow(() -> {
-            throw new ResourceNotFoundException("Account with such id was not found");
+            throw new ResourceNotFoundException(ExceptionMessages.ACCOUNT_BY_ID_NOT_FOUND);
         });
     }
 

@@ -10,6 +10,7 @@ import com.innowise.innowisebankproject.exception.AuthorizationException;
 import com.innowise.innowisebankproject.repository.UserRepository;
 import com.innowise.innowisebankproject.security.JwtService;
 import com.innowise.innowisebankproject.service.impl.AuthServiceImpl;
+import java.util.HashSet;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -41,6 +42,7 @@ class AuthServiceTest {
             .id(1L)
             .email(email)
             .password(BCrypt.hashpw(password, BCrypt.gensalt()))
+            .roles(new HashSet<>())
             .build();
         given(userRepository.findByEmail(email)).willReturn(Optional.of(registeredUser));
 
@@ -48,6 +50,7 @@ class AuthServiceTest {
             .id(1L)
             .email(email)
             .password(password)
+            .roles(new HashSet<>())
             .build();
         var jwt = authService.authorize(user);
 
@@ -69,7 +72,7 @@ class AuthServiceTest {
 
         assertThatThrownBy(() -> authService.authorize(user))
             .isInstanceOf(AuthorizationException.class)
-            .hasMessage("User with such email does not exist");
+            .hasMessage("User with such email was not found");
     }
 
     @Test

@@ -8,6 +8,7 @@ import com.innowise.innowisebankproject.repository.AccountTransactionRepository;
 import com.innowise.innowisebankproject.repository.CardRepository;
 import com.innowise.innowisebankproject.repository.CardTransactionRepository;
 import com.innowise.innowisebankproject.service.TransactionService;
+import com.innowise.innowisebankproject.util.ExceptionMessages;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 import java.math.BigDecimal;
@@ -33,12 +34,12 @@ public class TransactionServiceImpl implements TransactionService {
 
         var destAccount =
             accountRepository.findByNumber(destAccountNum).orElseThrow(() -> {
-                throw new ResourceNotFoundException("Account with such number was not found");
+                throw new ResourceNotFoundException(ExceptionMessages.ACCOUNT_BY_NUM_NOT_FOUND);
             });
 
         var srcAccount =
             accountRepository.findById(srcAccountId).orElseThrow(() -> {
-                throw new ResourceNotFoundException("Account with such number was not found");
+                throw new ResourceNotFoundException(ExceptionMessages.ACCOUNT_BY_NUM_NOT_FOUND);
             });
 
         accountTransactionRepository.transfer(destAccount.getId(), srcAccountId, amount);
@@ -56,16 +57,16 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public CardTransaction makeCardTransaction(String destCardNum, long srcCardId, BigDecimal amount) {
         var destCard = cardRepository.findByNum(destCardNum).orElseThrow(() -> {
-            throw new ResourceNotFoundException("Card with such number was not found");
+            throw new ResourceNotFoundException(ExceptionMessages.CARD_BY_NUM_NOT_FOUND);
         });
         var srcCard = cardRepository.findById(srcCardId).orElseThrow(() -> {
-            throw new ResourceNotFoundException("Card with such number was not found");
+            throw new ResourceNotFoundException(ExceptionMessages.CARD_BY_NUM_NOT_FOUND);
         });
 
         accountTransactionRepository.transfer(destCard.getAccountId(), srcCard.getAccountId(), amount);
         var currencyType = accountRepository.findById(destCard.getAccountId())
             .orElseThrow(() -> {
-                throw new ResourceNotFoundException("Account with such id was not found");
+                throw new ResourceNotFoundException(ExceptionMessages.ACCOUNT_BY_ID_NOT_FOUND);
             })
             .getCurrencyType();
 

@@ -107,7 +107,7 @@ class UserServiceTest {
 
         assertThatThrownBy(() ->  userService.findUserById(id))
             .isInstanceOf(ResourceNotFoundException.class)
-            .hasMessage("Such user does not exist");
+            .hasMessage("User with such id was not found");
     }
 
     @Test
@@ -136,6 +136,6 @@ class UserServiceTest {
 
         assertThatThrownBy(() ->  userService.findUserByEmail(email))
             .isInstanceOf(ResourceNotFoundException.class)
-            .hasMessage("User with such email does not exist");
+            .hasMessage("User with such email was not found");
     }
 }

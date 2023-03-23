@@ -5,6 +5,7 @@ import com.innowise.innowisebankproject.exception.AuthorizationException;
 import com.innowise.innowisebankproject.repository.UserRepository;
 import com.innowise.innowisebankproject.security.JwtService;
 import com.innowise.innowisebankproject.service.AuthService;
+import com.innowise.innowisebankproject.util.ExceptionMessages;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 import lombok.AllArgsConstructor;
@@ -25,13 +26,13 @@ public class AuthServiceImpl implements AuthService {
     public String authorize(User user) {
         var registeredPerson =
             userRepository.findByEmail(user.getEmail()).orElseThrow(() -> {
-                throw new AuthorizationException("User with such email does not exist");
+                throw new AuthorizationException(ExceptionMessages.USER_BY_EMAIL_NOT_FOUND);
             });
 
         if (BCrypt.checkpw(user.getPassword(), registeredPerson.getPassword())) {
             return jwtService.generateJwt(registeredPerson);
         } else {
-            throw new AuthorizationException("Incorrect password");
+            throw new AuthorizationException(ExceptionMessages.INCORRECT_PASSWORD);
         }
     }
 }

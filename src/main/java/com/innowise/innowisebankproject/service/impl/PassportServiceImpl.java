@@ -4,6 +4,7 @@ import com.innowise.innowisebankproject.entity.Passport;
 import com.innowise.innowisebankproject.exception.ResourceNotFoundException;
 import com.innowise.innowisebankproject.repository.PassportRepository;
 import com.innowise.innowisebankproject.service.PassportService;
+import com.innowise.innowisebankproject.util.ExceptionMessages;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 import lombok.AllArgsConstructor;
@@ -25,7 +26,7 @@ public class PassportServiceImpl implements PassportService {
     @Override
     public Passport getById(Long id) {
         return passportRepository.findById(id).orElseThrow(() -> {
-            throw new ResourceNotFoundException("Passport with this id was not found");
+            throw new ResourceNotFoundException(ExceptionMessages.PASSPORT_BY_ID_NOT_FOUND);
         });
     }
 }

@@ -6,6 +6,7 @@ import com.innowise.innowisebankproject.exception.ResourceNotFoundException;
 import com.innowise.innowisebankproject.exception.ResourceUpdateException;
 import com.innowise.innowisebankproject.repository.UserRepository;
 import com.innowise.innowisebankproject.service.UserService;
+import com.innowise.innowisebankproject.util.ExceptionMessages;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 import java.util.List;
@@ -39,7 +40,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findUserById(Long id) {
         return userRepository.findById(id).orElseThrow(() -> {
-            throw new ResourceNotFoundException("Such user does not exist");
+            throw new ResourceNotFoundException(ExceptionMessages.USER_BY_ID_NOT_FOUND);
         });
     }
 
@@ -51,7 +52,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findUserByEmail(String email) {
         return userRepository.findByEmail(email).orElseThrow(() -> {
-            throw new ResourceNotFoundException("User with such email does not exist");
+            throw new ResourceNotFoundException(ExceptionMessages.USER_BY_EMAIL_NOT_FOUND);
         });
     }
 }

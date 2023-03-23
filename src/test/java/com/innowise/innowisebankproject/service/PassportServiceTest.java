@@ -74,6 +74,6 @@ class PassportServiceTest {
 
         assertThatThrownBy(() -> passportService.getById(id))
             .isInstanceOf(ResourceNotFoundException.class)
-            .hasMessage("Passport with this id was not found");
+            .hasMessage("Passport with such id was not found");
     }
 }
