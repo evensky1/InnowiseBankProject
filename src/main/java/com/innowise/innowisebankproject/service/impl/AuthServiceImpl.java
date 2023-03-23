@@ -29,7 +29,7 @@ public class AuthServiceImpl implements AuthService {
             });
 
         if (BCrypt.checkpw(user.getPassword(), registeredPerson.getPassword())) {
-            return jwtService.generateJwt(user);
+            return jwtService.generateJwt(registeredPerson);
         } else {
             throw new AuthorizationException("Incorrect password");
         }

@@ -1,9 +1,12 @@
 package com.innowise.innowisebankproject.security;
 
+import com.innowise.innowisebankproject.entity.Role;
+import com.innowise.innowisebankproject.entity.RoleName;
 import com.innowise.innowisebankproject.entity.User;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import jakarta.ejb.Stateless;
+import java.util.List;
 import javax.crypto.spec.SecretKeySpec;
 
 @Stateless
@@ -15,6 +18,7 @@ public class JwtService {
 
         return Jwts.builder()
             .claim("email", user.getEmail())
+            .claim("roles", user.getRoles().stream().map(Role::getName).toList())
             .signWith(key)
             .compact();
     }
@@ -38,5 +42,16 @@ public class JwtService {
             .getBody()
             .get("email")
             .toString();
+    }
+
+    public List<RoleName> fetchRoles(String token) {
+        var key = System.getenv("JWT_KEY").getBytes();
+
+        return (List<RoleName>) Jwts.parserBuilder()
+            .setSigningKey(key)
+            .build()
+            .parseClaimsJws(token)
+            .getBody()
+            .get("roles");
     }
 }
