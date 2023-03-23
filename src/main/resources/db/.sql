@@ -20,6 +20,19 @@ CREATE TABLE IF NOT EXISTS person
     passport_id   BIGINT REFERENCES passport (passport_id)
 );
 
+CREATE TABLE IF NOT EXISTS role
+(
+    role_id   BIGSERIAL PRIMARY KEY,
+    role_name VARCHAR(10)
+);
+
+CREATE TABLE IF NOT EXISTS user_has_role
+(
+    person_id BIGINT REFERENCES person (person_id) NOT NULL,
+    role_id   BIGINT REFERENCES role (role_id)     NOT NULL,
+    PRIMARY KEY (person_id, role_id)
+);
+
 CREATE TABLE IF NOT EXISTS account
 (
     account_id    BIGSERIAL PRIMARY KEY,
