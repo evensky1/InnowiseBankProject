@@ -1,5 +1,6 @@
 package com.innowise.innowisebankproject.rest;
 
+import com.innowise.innowisebankproject.entity.RoleName;
 import com.innowise.innowisebankproject.security.JwtFilter;
 import com.innowise.innowisebankproject.service.UserService;
 import jakarta.ejb.EJB;
@@ -29,7 +30,7 @@ public class UserController {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    @JwtFilter
+    @JwtFilter(rolesAllowed = {RoleName.ADMIN})
     public Response getUserById(@PathParam("id") Long id) {
 
         return Response.ok()

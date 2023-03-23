@@ -47,11 +47,13 @@ public class JwtService {
     public List<RoleName> fetchRoles(String token) {
         var key = System.getenv("JWT_KEY").getBytes();
 
-        return (List<RoleName>) Jwts.parserBuilder()
+        var roles = (List<String>) Jwts.parserBuilder()
             .setSigningKey(key)
             .build()
             .parseClaimsJws(token)
             .getBody()
             .get("roles");
+
+        return roles.stream().map(RoleName::valueOf).toList();
     }
 }
